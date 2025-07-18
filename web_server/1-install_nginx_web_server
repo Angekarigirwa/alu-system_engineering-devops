@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# Install Nginx and configure the welcome page
+# This script installs and configures Nginx to serve a page with "Holberton School"
 
 # Update package list and install Nginx
 sudo apt-get update
 sudo apt-get install -y nginx
 
-# Overwrite the default index.html with the required content
+# Allow HTTP traffic
+sudo ufw allow 'Nginx HTTP'
+
+# Create custom index.html with required content
 echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
 
-# Ensure Nginx is running and will start on boot
+# Restart and enable Nginx
 sudo systemctl restart nginx
 sudo systemctl enable nginx
 
