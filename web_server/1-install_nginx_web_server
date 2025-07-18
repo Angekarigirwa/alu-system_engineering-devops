@@ -1,22 +1,13 @@
 #!/usr/bin/env bash
-# Sets up a web server with Nginx and a custom index page that says "Holberton School"
+# Install Nginx package and dependencies
 
-# Exit on error
-set -e
-
-# Update package list
 sudo apt-get update
-
-# Install Nginx
 sudo apt-get install -y nginx
 
-# Allow Nginx through the firewall (ignore if ufw is not active)
-sudo ufw allow 'Nginx HTTP' || true
+sudo sed -i 's/# listen 80/listen 80/' /etc/nginx/sites-available/default
 
-# Overwrite the default index.html page with the required content
-echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
+sudo service nginx restart
+sudo service nginx restart
 
-# Ensure Nginx is running and enabled at boot
-sudo systemctl restart nginx
-sudo systemctl enable nginx
 
