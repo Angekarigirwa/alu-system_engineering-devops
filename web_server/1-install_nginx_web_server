@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-# Install Nginx package and dependencies
+# Install Nginx and configure the welcome page
 
+# Update package list and install Nginx
 sudo apt-get update
 sudo apt-get install -y nginx
 
-sudo sed -i 's/# listen 80/listen 80/' /etc/nginx/sites-available/default
+# Overwrite the default index.html with the required content
+echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
 
-echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
-sudo service nginx restart
+# Ensure Nginx is running and will start on boot
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+
